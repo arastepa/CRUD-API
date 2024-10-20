@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, validate } from 'uuid';
 
 interface User {
   id: string;
@@ -32,22 +32,24 @@ const getRequestBody = (req: IncomingMessage): Promise<any> => {
   });
 };
 
-// GET all users
 export const getAllUsers = (res: ServerResponse) => {
   sendResponse(res, 200, users);
 };
 
-// GET user by ID
 export const getUserById = (id: string, res: ServerResponse) => {
-  const user = users.find((u) => u.id === id);
-  if (user) {
-    sendResponse(res, 200, user);
-  } else {
-    sendResponse(res, 404, { message: 'User not found' });
+  const isValid = validate(id);
+  if (!isValid)
+    sendResponse(res, 400, { message: 'Invalid Id' });
+  else {
+    const user = users.find((u) => u.id === id);
+    if (user) {
+      sendResponse(res, 200, user);
+    } else {
+      sendResponse(res, 404, { message: 'User not found' });
+    }
   }
 };
 
-// POST create user
 export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
   try {
     const { username, age, hobbies } = await getRequestBody(req);
@@ -71,7 +73,6 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
   }
 };
 
-// PUT update user
 export const updateUser = async (id: string, req: IncomingMessage, res: ServerResponse) => {
   try {
     const userIndex = users.findIndex((u) => u.id === id);
@@ -95,7 +96,6 @@ export const updateUser = async (id: string, req: IncomingMessage, res: ServerRe
   }
 };
 
-// DELETE user
 export const deleteUser = (id: string, res: ServerResponse) => {
   const userIndex = users.findIndex((u) => u.id === id);
 

@@ -1,6 +1,8 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './users';
+import dotenv from 'dotenv'
 
+dotenv.config();
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   const url = req.url || '';
   const method = req.method || '';
@@ -25,7 +27,6 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   }
 });
 
-const PORT = 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+server.listen(process.env['PORT'], () => {
+  console.log(`Server is running on port ${process.env['PORT']}`);
 });
