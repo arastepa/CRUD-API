@@ -5,7 +5,7 @@ describe('CRUD API tests for /api/users', () => {
   let createdUserId: string;
 
   it('should return an empty array when no users exist', async () => {
-    const res = await request(server).get('/users');
+    const res = await request(server).get('/api/users');
     console.log(res);
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual([]);
@@ -18,7 +18,7 @@ describe('CRUD API tests for /api/users', () => {
       hobbies: ['reading', 'coding'],
     };
 
-    const res = await request(server).post('/users').send(newUser);
+    const res = await request(server).post('/api/users').send(newUser);
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('id');
     expect(res.body.username).toBe(newUser.username);
@@ -29,7 +29,7 @@ describe('CRUD API tests for /api/users', () => {
   });
 
   it('should retrieve the created user by ID', async () => {
-    const res = await request(server).get(`/users/${createdUserId}`);
+    const res = await request(server).get(`/api/users/${createdUserId}`);
     expect(res.statusCode).toBe(200);
     expect(res.body.id).toBe(createdUserId);
     expect(res.body.username).toBe('John Doe');
@@ -44,7 +44,7 @@ describe('CRUD API tests for /api/users', () => {
       hobbies: ['hiking', 'gaming'],
     };
 
-    const res = await request(server).put(`/users/${createdUserId}`).send(updatedUser);
+    const res = await request(server).put(`/api/users/${createdUserId}`).send(updatedUser);
     expect(res.statusCode).toBe(200);
     expect(res.body.id).toBe(createdUserId);
     expect(res.body.username).toBe(updatedUser.username);
@@ -53,12 +53,12 @@ describe('CRUD API tests for /api/users', () => {
   });
 
   it('should delete the user by ID', async () => {
-    const res = await request(server).delete(`/users/${createdUserId}`);
+    const res = await request(server).delete(`/api/users/${createdUserId}`);
     expect(res.statusCode).toBe(204);
   });
 
   it('should return 404 for a deleted user', async () => {
-    const res = await request(server).get(`/users/${createdUserId}`);
+    const res = await request(server).get(`/api/users/${createdUserId}`);
     expect(res.statusCode).toBe(404);
     expect(res.body.message).toBe('User not found');
   });

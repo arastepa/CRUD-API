@@ -6,14 +6,14 @@ dotenv.config();
 export const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   const url = req.url || '';
   const method = req.method || '';
-  const idMatch = url.match(/^\/users\/([a-zA-Z0-9-]+)$/);
+  const idMatch = url.match(/^\/api\/users\/([a-zA-Z0-9-]+)$/);
   
-  if (url === '/users' && method === 'GET') {
+  if (url === '/api/users' && method === 'GET') {
     getAllUsers(res);
   } else if (idMatch && method === 'GET') {
     const userId = idMatch[1];
     getUserById(userId, res);
-  } else if (url === '/users' && method === 'POST') {
+  } else if (url === '/api/users' && method === 'POST') {
     createUser(req, res);
   } else if (idMatch && method === 'PUT') {
     const userId = idMatch[1];
