@@ -3,7 +3,7 @@ import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './
 import dotenv from 'dotenv'
 
 dotenv.config();
-const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+export const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   const url = req.url || '';
   const method = req.method || '';
   const idMatch = url.match(/^\/users\/([a-zA-Z0-9-]+)$/);

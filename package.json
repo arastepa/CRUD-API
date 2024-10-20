@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest ./src/tests/test.ts",
     "start:dev": "nodemon",
     "start:prod": "webpack && node dist/bundle.js",
     "watch": "webpack --watch",
@@ -18,7 +18,8 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.13",
-    "@types/node": "^22.7.6",
+    "@types/node": "^22.7.7",
+    "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",
     "@webpack-cli/generators": "^3.0.7",
     "cross-env": "^7.0.3",
@@ -33,6 +34,7 @@
     "mini-css-extract-plugin": "^2.8.1",
     "nodemon": "^3.1.7",
     "style-loader": "^4.0.0",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
@@ -45,6 +47,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "@jest/globals": "^29.7.0",
     "node-polyfill-webpack-plugin": "^4.0.0",
     "uuid": "^10.0.0"
   }
