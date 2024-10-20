@@ -5,9 +5,7 @@
   "scripts": {
     "test": "jest ./src/tests/test.ts",
     "start:dev": "nodemon",
-    "start:prod": "webpack && node dist/bundle.js",
-    "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "start:prod": "webpack && node dist/bundle.js"
   },
   "keywords": [],
   "author": "",
